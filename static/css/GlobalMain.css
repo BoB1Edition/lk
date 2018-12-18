@@ -1,0 +1,58 @@
+.wrapper {
+  background-color: beer;
+}
+title {
+  font-family: 'Lobster';
+}
+
+/*.sidebar {
+    padding-left: 0;
+    padding-right: 0;
+}
+*/.sidebar {
+/*    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+*/    border-right: 2px solid #eee;
+    border-color: black;
+}
+
+#circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	  width: 50%;
+
+    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loader {
+  width: calc(100% - 0px);
+	height: calc(100% - 0px);
+	border: 8px solid #162534;
+	border-top: 8px solid #09f;
+	border-radius: 50%;
+	animation: rotate 5s linear infinite;
+  background-color: red;
+}
+
+@keyframes rotate {
+100% {transform: rotate(360deg);}
+}
+
+.btn {
+  background-color: red;
+}
+
+.btn:hover {
+  background-color: white;
+  color: red;
+}

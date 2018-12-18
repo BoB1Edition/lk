@@ -1,0 +1,6 @@
+*.cnf
+*.json
+convert/
+astdb/
+resource/
+*.pyc

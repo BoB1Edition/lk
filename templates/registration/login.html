@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Неправильно введен логин или пароль.</p>
+{% endif %}
+
+<div class="text-center">
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>У вас нет доступа, обратитесть в сервис деск для предоставления прав</p>
+    {% else %}
+    <p class="h3 mb-3">Введите логин и пароль</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}" class="form-signin">
+{% csrf_token %}
+
+<div class="form-label-group">
+<!--span class="has-float-label"-->
+  {{ form.username }}
+  <label for="id_username">Имя пользователя</label>
+<!--/span-->
+</div>
+<div class="form-label-group">
+  {{ form.password }}
+  <label for="id_password">Пароль</label>
+</div>
+
+<div>
+  <input type="submit" value="Войти" class="btn btn-block btn-primary" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</div>
+</form>
+
+{# Assumes you setup the password_reset view in your URLconf #}
+<p></p>
+</div>
+{% endblock %}

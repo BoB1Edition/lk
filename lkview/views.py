@@ -1,0 +1,87 @@
+from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
+from lk import settings
+from asterisk.ami import SimpleAction, AMIClient
+from lkview.models import Cdr, Astdb
+from django.db.models import Q
+import re, os
+from subprocess import Popen
+
+@login_required
+def index(request):
+    PBXClient = AMIClient(address=settings.JSON_SETTINGS['asteriskServer'],port=5038)
+    PBXClient.login(username=settings.JSON_SETTINGS['AMILogin'],
+    secret=settings.JSON_SETTINGS['AMIPassword'])
+    #q = None
+    def event_listener(event,**kwargs):
+        print(event)
+
+    #PBXClient.add_event_listener(event_listener, white_list=['DBGetResponse'])
+    #action = SimpleAction(
+    #'logoff'
+    #)
+    # PBXClient = settings.PBXClient
+    #ans = PBXClient.send_action(action, callback=callback_response)
+    #print(ans)
+#    action = SimpleAction('Originate',
+#    Channel='SIP/6350',
+#    Exten='6633',
+#    Priority=1,
+#    Context='default',
+#    CallerID='python',
+#    )
+#    ans = PBXClient.send_action(action, callback=callback_response)
+    Astdb.objects.using('Astdb').filter(key__like=)
+    liitem = []
+    mynumber = request.user.aduser.telephoneNumber
+    # liitem += ['6666']
+    print("response: %s" % ans.response)
+    context = {'liitem': liitem, 'ans' : ans.response, 'mynumber' : mynumber}
+    #return HttpResponse('%s' % dir(request.user))
+    return render(request, 'lkview/index.html', context)
+
+def callback_response(response):
+    print(response)
+
+@login_required
+def mainjs(request):
+    return render(request, 'lkview/js/main.js', {
+    'mynumber' : request.user.aduser.telephoneNumber
+    })
+
+def number(request, num):
+    r = re.compile('.*-(\d+)-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})-.*')
+    recordingfiles = Cdr.objects.using('asteriskcdrdb').filter(
+    ~Q(recordingfile = ''),
+    dst = ('%s' % num),
+    disposition='ANSWERED'
+    ).order_by('-calldate').values_list('recordingfile', flat=True).distinct()
+    rfs = [y for y in recordingfiles]
+    dt = []
+    for rf in rfs:
+        filename = 'resource/%s/%s/%s/%s' % (r.match(rf)[2], r.match(rf)[3],
+        r.match(rf)[4], r.match(rf)[0])
+        if not os.path.isfile(filename):
+            continue
+        dt += [{'data' : '%s/%s/%s %s:%s:%s' % (r.match(rf)[2], r.match(rf)[3],
+        r.match(rf)[4], r.match(rf)[5], r.match(rf)[6], r.match(rf)[7]),
+        'extern' : '%s' % r.match(rf)[1],
+        'filename' : '/%s' % filename,
+        }]
+    recordingfiles = Cdr.objects.using('asteriskcdrdb').filter(
+    ~Q(recordingfile = ''),
+    src = ('%s' % num)
+    ).order_by('-calldate').values_list('recordingfile').distinct()
+    return JsonResponse(dt, safe=False)
+
+def convert(request, fname):
+    #os.process('ffmpeg -i %s -acodec libvorbis output.ogg')
+    output = fname.split('/')[-1][:-3]
+    if os.path.isfile('convert/%sogg' % output):
+        return JsonResponse({})
+
+    cmd = 'ffmpeg -i %s -acodec libvorbis convert/%sogg' % (fname, output)
+    #p = Popen(['ffmpeg', '-i', fname, '-acodec', 'libvorbis', 'convert/%sogg' % output])
+    os.system(cmd)
+    return JsonResponse({})

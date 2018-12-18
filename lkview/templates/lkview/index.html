@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+{% block content %}
+
+{% load static %}
+
+    <div class="row">
+    <aside class="col-md-2 sidebar">
+      {% if mynumber %}
+      <ul class="navbar-nav mr-auto sticky-top" id="Phones">
+        <li class="nav-item">
+          <a href="#t{{ mynumber }}" data-toggle="collapse" data-target="#t{{ mynumber }}" data-parent="#Phones" class="btn btn-block btn-primary">{{ mynumber }}</a>
+          {% csrf_token %}
+        </li>
+          <div id="t{{ mynumber }}" class ="collapse">
+          </div>
+      </ul>
+      {% endif %}
+      {% for item in liitem %}
+      <ul class="navbar-nav mr-auto" id="slavePhone">
+        <li class="nav-item"><a class="btn" href="#t{{ item }}" data-toggle="collapse">{{ item }}</a></li>
+      </ul>
+      {% endfor %}
+      </aside>
+    <div controls id="data" class="col-md-10">
+
+    </div>
+   </div>
+   <script src="https://code.jquery.com/jquery.min.js" crossorigin="anonymous"></script>
+   <script src="js/main.js"></script>
+{% endblock %}
