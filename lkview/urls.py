@@ -6,5 +6,6 @@ from django.conf import settings
 
 app_name = 'lkview'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.main, name='main'),
+    path('ring/', views.index, name='index'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

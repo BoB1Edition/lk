@@ -21,11 +21,12 @@ class Adauth:
             u, created = User.objects.get_or_create(username=username)
             u.password=password
             u.save()
-            if created:
-                ad, _ = aduser.objects.get_or_create(user=u)
-                ad.fill(u)
-                self.user = ad
-                self.user.save()
+            #if created:
+            ad, _ = aduser.objects.get_or_create(user=u)
+            ad.fill(u)
+            self.user = ad
+            self.user.save()
+            #ad.fill(u)
             u.save()
             return u
         else:

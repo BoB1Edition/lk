@@ -34,10 +34,12 @@ class aduser(models.Model):
             self.sid = c.entries[0]['objectSid'].value
             self.user.save()
             grs = c.entries[0]['memberOf']
+            print(grs)
             gr = [x.split(',')[0][3:] for x in grs.values]
             self.telephoneNumber = c.entries[0]['telephoneNumber'].value
             self.save()
             for g in gr:
+                print("g: %s" % g )
                 if g == 'PBX-admin':
                     self.user.is_superuser = 1
                 NewGroup, _ =Group.objects.get_or_create(name=g)
