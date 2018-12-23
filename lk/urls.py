@@ -24,10 +24,12 @@ from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^record/number/([0-9]{4})/', lk.number, name='number'),
-    url(r'^$', lk.index, name='index'),
+    url(r'^record/number/([0-9]+)/', lk.number, name='number'),
+    url(r'^$', lk.main, name='main'),
     url(r'^convert/(.*)$', lk.convert, name='convert'),
     url(r'^js/main.js$', lk.mainjs, name='main.js'),
+    url(r'^ring/', lk.index, name='index'),
+    url(r'^search/', include('search.urls')),
     #url(r'^accounts/login/$', include('django.contrib.auth.views.LoginView'),
     #{'template_name': 'registration/login.html', 'authentication_form': views.LoginForm}),
     url(r'^accounts/login/$', LoginView.as_view(template_name='registration/login.html',

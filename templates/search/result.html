@@ -1,0 +1,23 @@
+
+
+{% for call in calls  %}
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Событие</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in call %}
+        <tr>
+          <td>{{ event.date }}</td>
+          <td> {{ event.text }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{{ event.rec }}" class="btn btn-primary active|disabled" role="button">запись</a>
+  </div>
+{% endfor %}

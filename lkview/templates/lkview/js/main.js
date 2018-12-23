@@ -1,13 +1,14 @@
 var token = '{{csrf_token}}';
 
-$('#Phones>li>a').on('click', function() {
-    number = $('#Phones>li>a').html();
+$('.Phones>li>a').on('click', function(event) {
+    number = $(event.target).html();
       $.ajax( {
         headers: { "X-CSRFToken": token },
         beforeSend: function() {
-        $('#data').empty();
+        $('#in').empty();
+        $('#out').empty();
         $('#data').append('\
-        <div id="circle">\
+        <div class="circle">\
         <div class="loader">\
         <div class="loader">\
         <div class="loader">\
@@ -20,27 +21,38 @@ $('#Phones>li>a').on('click', function() {
 </div> ');
       },
       compile : function() {
-        $('#circle').hide('slow');
+        $('.circle').hide('slow');
+        $('.circle').remove();
       },
       method: 'POST',
-      url: ("record/number/" + number + "/"),
+      url: (window.location.origin+"/record/number/" + number + "/"),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       success: function( data ) {
-        $('#circle').hide('slow');
-        for(var i in data) {
-          str = "<li class=\"btn btn-block btn-primary\" filename=\""
-          + data[i]['filename'] +"\">"+data[i]['data'] + " " + data[i]['extern'] +"</li>";
-          li = $('#data').append(str);
-          li.children().last().wrap("<p class=record></p>");
-        }
         console.log(data)
+        $('.circle').hide('slow');
+        $('.circle').remove();
+        $('#in').append('<h1>Входящие вызовы</h1>');
+        $('#out').append('<h1>Исходящие вызовы</h1>');
+        for(var i in data) {
+          if(data[i]['direction'] === 'in') {
+            str = "<li class=\"btn btn-block btn-primary\" filename=\""
+            + data[i]['filename'] +"\">"+data[i]['data'] + " " + data[i]['extern'] +"</li>";
+            li = $('#in').append(str);
+            li.children().last().wrap("<p class=record></p>");
+          }
+          else {
+            str = "<li class=\"btn btn-block btn-primary\" filename=\""
+            + data[i]['filename'] +"\">"+data[i]['data'] + " " + data[i]['extern'] +"</li>";
+            li = $('#out').append(str);
+            li.children().last().wrap("<p class=record></p>");
+          }
+        }
       }
     }).done(function() {
       $('.record li').on('click', function(event){
         filename = this.attributes.filename.value;
         parent = $(this.parentElement)
-        console.log(parent)
         $.ajax ( {
           headers: { "X-CSRFToken": token },
           beforeSend : function() {
@@ -48,12 +60,11 @@ $('#Phones>li>a').on('click', function() {
             $('.player').remove();
           },
           method: 'POST',
-          url: ("convert" + filename),
+          url: (window.location.origin+"/convert" + filename),
           contentType: "application/json; charset=utf-8",
           dataType: "json",
           success: function( data ) {
-            console.log(parent.parent);
-            parent.append("<audio class='player' src=http://lk.ath.ru/ogg/"+filename.substr(1, filename.length - 4) +
+            parent.append("<audio class='player' src=http://srvlk.ath.ru/ogg/"+filename.substr(1, filename.length - 4) +
             "ogg controls>play record</audio>");
           }
         }).done(function(){

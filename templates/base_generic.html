@@ -17,12 +17,14 @@
   {% endif %}
 </head>
 <body>
-  <header class="navbar navbar-default navbar-fixed-top sticky-top"><img src='{% static "lkview/images/ATH_logo.jpg" %}'>
-    <h2>Добро пожаловать
+  <header class="navbar navbar-default navbar-fixed-top">
+    <a href="/"><img src='{% static "lkview/images/ATH_logo.jpg" %}'></a>
     {% if user.is_authenticated %}
-    <a href="{% url 'logout' %}">{{ user }}</a>
+    <h2>Добро пожаловать <a href="{% url 'logout' %}">{{ user }}</a></h2>
+    {% else %}
+    <h2 class="center">Добро пожаловать</h2>
     {% endif %}
-  </h2></header>
+  </header>
   <div class="wrapper container">
 
   {% block content %}<!-- default content text (typically empty) -->{% endblock %}

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lkview',
     'aduser',
+    'search',
 ]
 
 MIDDLEWARE = [
@@ -151,7 +152,8 @@ STATICFILES_DIRS = (
 )
 
 JSON_SETTINGS = json.load(open('settings.json'))
+LOGOUT_REDIRECT_URL = '/'
 
-
-
+STATIC_ROOT = os.path.join(BASE_DIR, "statics/")
+ALLOWED_HOSTS = ['*']
 # AUTH_USER_MODEL = 'aduser.models.Aduser'

@@ -1,16 +1,24 @@
 .wrapper {
   background-color: beer;
 }
+
+/*.container {
+  margin-left: 1%;
+}*/
+
 title {
   font-family: 'Lobster';
 }
 
+.center {
+  align-content: center;
+}
 /*.sidebar {
     padding-left: 0;
     padding-right: 0;
 }
 */.sidebar {
-/*    position: fixed;
+/*    position: absolute;
     top: 51px;
     bottom: 0;
     left: 0;
@@ -22,13 +30,13 @@ title {
     border-color: black;
 }
 
-#circle {
+.circle {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
 	  width: 50%;
-
+    height: 50%;
     margin: auto;
     margin-left: auto;
     margin-right: auto;
@@ -49,10 +57,11 @@ title {
 }
 
 .btn {
-  background-color: red;
+  background-color: LightBlue;
+  color: black;
 }
 
 .btn:hover {
-  background-color: white;
-  color: red;
+  background-color: LightSteelBlue;
+  color: black;
 }
