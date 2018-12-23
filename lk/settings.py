@@ -156,4 +156,5 @@ LOGOUT_REDIRECT_URL = '/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "statics/")
 ALLOWED_HOSTS = ['*']
+
 # AUTH_USER_MODEL = 'aduser.models.Aduser'
