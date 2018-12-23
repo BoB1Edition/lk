@@ -72,7 +72,12 @@ $('button').on('click', function(){
       dataType: "html",
       success: function( data ) {
         console.log(data);
-        $('.table').html(data)
+        if (data) {
+          console.log('data');
+          $('.table').html(data)
+        } else {
+          console.log('else');
+        }
       }
   });
   return false;
