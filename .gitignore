@@ -4,3 +4,4 @@ convert/
 astdb/
 resource/
 *.pyc
+statics/

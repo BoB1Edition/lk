@@ -75,7 +75,7 @@ def number(request, num):
     ~Q(recordingfile = ''),
     dst = ('%s' % num),
     disposition='ANSWERED'
-    ).order_by('-calldate').values_list('recordingfile', flat=True).distinct()[0:20]
+    ).order_by('-calldate').values_list('recordingfile', flat=True).distinct()
     rfs = [y for y in recordingfiles]
     dt = []
     for rf in rfs:

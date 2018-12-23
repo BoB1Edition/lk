@@ -43,7 +43,7 @@ $('button').on('click', function(){
       $('#in').empty();
       $('#out').empty();
       $('.table').empty();
-      $('#data').append('\
+      $('.table').append('\
       <div class="circle">\
       <div class="loader">\
       <div class="loader">\
