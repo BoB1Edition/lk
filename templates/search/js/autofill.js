@@ -41,7 +41,7 @@ $('button').on('click', function(){
     return false;
   }
   else {
-    $('#numberalert').hide()
+    $('#numberalert').hide();
   }
   before = $('.dataBefore').val();
   after = $('.dataAfter').val();
@@ -82,6 +82,28 @@ $('button').on('click', function(){
         console.log(data);
         $('.table').html(data)
       }
+  }).done(function() {
+    $('.record').on('click', function(event){
+      filename = this.attributes.filename.value;
+      parent = $(this.parentElement)
+      $.ajax ( {
+        headers: { "X-CSRFToken": token },
+        beforeSend : function() {
+          $('.player').hide('slow');
+          $('.player').remove();
+        },
+        method: 'POST',
+        url: (window.location.origin+"/convert" + filename),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function( data ) {
+          parent.append("<audio class='player' src=http://srvlk.ath.ru/ogg/"+filename.substr(1, filename.length - 4) +
+          "ogg controls>play record</audio>");
+        }
+      }).done(function(){
+        $('.player').show('slow')
+      });
+    });
   });
   return false;
 });

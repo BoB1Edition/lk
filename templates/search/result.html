@@ -10,7 +10,8 @@
         </tr>
       </thead>
       <tbody>
-        {% for event in call %}
+        {% for event in call.calls %}
+        <!--{{ event }}-->
         <tr>
           <td>{{ event.date }}</td>
           <td> {{ event.text }}</td>
@@ -20,7 +21,7 @@
         {% endfor %}
       </tbody>
     </table>
-    <a href="{{ event.rec }}" class="btn btn-primary active|disabled" role="button">запись</a>
+    <p class="btn btn-primary record" filename="/{{ call.rec }}">запись</p>
   </div>
   {% empty %}
   <div>

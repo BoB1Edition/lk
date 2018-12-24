@@ -41,6 +41,7 @@ def result(request, num):
     ).order_by('-calldate').values('uniqueid').distinct()
     linkedids = []
     calls = []
+    rec = ''
     for qnumber in qnumbers:
         #print('qnumber: %s' % qnumber)
         quniqs = Cel.objects.using('asteriskcdrdb').filter(
@@ -59,8 +60,10 @@ def result(request, num):
 
                 for event in events:
                     #print('event: %s' % event)
-                    if event['exten'] == 'recordcheck' or event['context']  == 'from-queue':
-                        rec = event['appdata']
+                    if event['exten'] == 'recordcheck':
+                        rec = '%s' % event['appdata']
+                        continue
+                    if event['context']  == 'from-queue':
                         continue
                     if event['eventtype'] == 'CHAN_END' or event['eventtype'] == 'BRIDGE_ENTER'  or event['eventtype'] == 'BRIDGE_EXIT':
                         continue
@@ -70,15 +73,20 @@ def result(request, num):
                         continue
                     if event['cid_num'] == '' or event['cid_num'] is None  or event['exten'] == '':
                         continue
+                    if event['eventtype'] == 'ATTENDEDTRANSFER':
+                        continue
                     call += [{
                     'date': event['eventtime'],
                     'text': eventToText(event),
                     'linkedid' : event['linkedid'],
                     'uniqueid' : event['uniqueid'],
-                    'rec' : 'rec'
                     }]
-                calls += [call]
-    print(calls)
+                    print((rec.split(','))[0])
+                calls += [{
+                'calls': call,
+                'rec' : (rec.split(','))[0]
+                }]
+    # print(calls)
     return render(request, 'search/result.html', {'calls':calls})
 
 def eventToText(event):
