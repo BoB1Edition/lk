@@ -91,9 +91,10 @@ $('button').on('click', function(){
         beforeSend : function() {
           $('.player').hide('slow');
           $('.player').remove();
+		console.log(window.location.origin+"convert/resource/" + filename)
         },
         method: 'POST',
-        url: (window.location.origin+"convert/resource/" + filename),
+        url: (window.location.origin+"/convert/resource" + filename),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function( data ) {
