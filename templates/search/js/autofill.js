@@ -1,6 +1,7 @@
 var token = '{{csrf_token}}';
 
 
+$('.hidden').hide();
 Date.prototype.addHours = function(h) {
    this.setTime(this.getTime() + (h*60*60*1000));
    return this;
@@ -35,6 +36,13 @@ $('#number_phone').typeahead({
 
 $('button').on('click', function(){
   phoneNum = $('#number_phone').val();
+  if(phoneNum === ''){
+    $('#numberalert').animate({height: "show"}, 1000)
+    return false;
+  }
+  else {
+    $('#numberalert').hide()
+  }
   before = $('.dataBefore').val();
   after = $('.dataAfter').val();
   $.ajax({
@@ -72,12 +80,7 @@ $('button').on('click', function(){
       dataType: "html",
       success: function( data ) {
         console.log(data);
-        if (data) {
-          console.log('data');
-          $('.table').html(data)
-        } else {
-          console.log('else');
-        }
+        $('.table').html(data)
       }
   });
   return false;

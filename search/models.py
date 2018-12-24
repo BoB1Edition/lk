@@ -55,3 +55,31 @@ class Cdr(models.Model):
     class Meta:
         managed = False
         db_table = 'cdr'
+
+class IvrDetails(models.Model):
+    id   = models.IntegerField(primary_key=True, default=0)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    description = models.CharField(max_length=150, blank=True, null=True)
+    announcement = models.IntegerField(blank=True, null=True)
+    directdial = models.CharField(max_length=50, blank=True, null=True)
+    invalid_loops = models.CharField(max_length=10, blank=True, null=True)
+    invalid_retry_recording = models.CharField(max_length=25, blank=True, null=True)
+    invalid_destination = models.CharField(max_length=50, blank=True, null=True)
+    timeout_enabled = models.CharField(max_length=50, blank=True, null=True)
+    invalid_recording = models.CharField(max_length=25, blank=True, null=True)
+    retvm = models.CharField(max_length=8, blank=True, null=True)
+    timeout_time = models.IntegerField(blank=True, null=True)
+    timeout_recording = models.CharField(max_length=25, blank=True, null=True)
+    timeout_retry_recording = models.CharField(max_length=25, blank=True, null=True)
+    timeout_destination = models.CharField(max_length=50, blank=True, null=True)
+    timeout_loops = models.CharField(max_length=10, blank=True, null=True)
+    timeout_append_announce = models.IntegerField()
+    invalid_append_announce = models.IntegerField()
+    timeout_ivr_ret = models.IntegerField()
+    invalid_ivr_ret = models.IntegerField()
+    alertinfo = models.CharField(max_length=150, blank=True, null=True)
+    rvolume = models.CharField(max_length=2)
+
+    class Meta:
+        managed = False
+        db_table = 'ivr_details'

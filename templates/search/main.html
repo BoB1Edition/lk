@@ -4,10 +4,17 @@
 {% load static %}
 
 <div class="row">
-  <form class="formquery form-group sticky-top col-md-3" method="get">
+  <form class="formquery form-group sticky-top col-md-3" method="get" id="sform">
     {% csrf_token %}
+    <div>
+
+
+    <div class="alert alert-danger  hidden" role="alert" id="numberalert">
+      Введите номер телефона
+    </div>
     <input placeholder="Номер телефона" id="number_phone" type="number" class="form-control" required>
     <label for="number_phone">Номер телефона</label>
+    </div>
     <!--ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" style="display: none;">
     </ul-->
     <!--div class="ui-widget-overlay ui-front error"></div>

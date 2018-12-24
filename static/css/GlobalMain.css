@@ -37,9 +37,9 @@ title {
     transform: translate(-50%,-50%);
 	  width: 50%;
     height: 50%;
-    margin: auto;
-    margin-left: auto;
-    margin-right: auto;
+    /*margin: auto;
+    /*margin-left: auto;
+    margin-right: auto;*/
 }
 
 .loader {

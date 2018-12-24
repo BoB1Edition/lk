@@ -59,16 +59,22 @@ def result(request, num):
 
                 for event in events:
                     #print('event: %s' % event)
-                    if event['exten'] == 'recordcheck':
+                    if event['exten'] == 'recordcheck' or event['context']  == 'from-queue':
                         rec = event['appdata']
                         continue
-                    if event['eventtype'] == 'CHAN_END' or event['exten'] == 's':
+                    if event['eventtype'] == 'CHAN_END' or event['eventtype'] == 'BRIDGE_ENTER'  or event['eventtype'] == 'BRIDGE_EXIT':
+                        continue
+                    if event['eventtype'] == 'APP_END':
+                        continue
+                    if ((event['context'] == 'from-internal' or event['context'] == 'ext-local') and event['eventtype'] == 'HANGUP'):
                         continue
                     if event['cid_num'] == '' or event['cid_num'] is None  or event['exten'] == '':
                         continue
                     call += [{
-                    'date':event['eventtime'],
+                    'date': event['eventtime'],
                     'text': eventToText(event),
+                    'linkedid' : event['linkedid'],
+                    'uniqueid' : event['uniqueid'],
                     'rec' : 'rec'
                     }]
                 calls += [call]
@@ -76,20 +82,26 @@ def result(request, num):
     return render(request, 'search/result.html', {'calls':calls})
 
 def eventToText(event):
-    pattern = re.compile("ivr.*")
+    pattern = re.compile("ivr-(.*)")
     text = ''
     if event['eventtype'] == 'CHAN_START':
-        text = "Звонок с номера %s на номер %s начался" % (event['cid_num'], event['exten'])
+        if event['context'] == 'from-internal':
+            text = "Звоним на номер %s" % (event['cid_num'])
+        else:
+            text = "Звонок с номера %s на номер %s начался" % (event['cid_num'], event['exten'])
     elif event['eventtype'] == 'LINKEDID_END':
         text = "Звонок с номера %s на номер %s завершен" % (event['cid_num'], event['exten'])
     elif event['eventtype'] == 'ANSWER':
         if pattern.match(event['context']):
-            text = "Запустилось приветствие"
+            ivr = IvrDetails.objects.using('asterisk').filter(
+            id=pattern.match(event['context'])[1]
+            ).values('name')
+            text = "Запустилось приветствие %s" % ivr[0]['name']
         else:
             text = "Ответил %s" % event['cid_num']
     elif event['eventtype'] == 'APP_START':
         if event['context'] == 'ext-queues':
-            text = 'Переведен вочередь %s' % event['exten']
+            text = 'Переведен в очередь %s' % event['exten']
     elif event['eventtype'] == 'HANGUP':
         text = 'Абонент %s положил трубку' % event['cid_num']
     else:

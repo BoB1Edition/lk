@@ -14,10 +14,16 @@
         <tr>
           <td>{{ event.date }}</td>
           <td> {{ event.text }}</td>
+          <!--td> {{ event.linkedid }}</td>
+          <td> {{ event.uniqueid }}</td-->
         </tr>
         {% endfor %}
       </tbody>
     </table>
     <a href="{{ event.rec }}" class="btn btn-primary active|disabled" role="button">запись</a>
+  </div>
+  {% empty %}
+  <div>
+    <h1>По запросу звонков не найдено</h1>
   </div>
 {% endfor %}
