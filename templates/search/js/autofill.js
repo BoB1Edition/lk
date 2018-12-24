@@ -89,7 +89,6 @@ $('button').on('click', function(){
       $.ajax ( {
         headers: { "X-CSRFToken": token },
         beforeSend : function() {
-          console.log(filename);
           $('.player').hide('slow');
           $('.player').remove();
         },
