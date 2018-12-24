@@ -93,7 +93,7 @@ $('button').on('click', function(){
           $('.player').remove();
         },
         method: 'POST',
-        url: (window.location.origin+"/convert" + filename),
+        url: (window.location.origin+":8080/convert" + filename),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function( data ) {
