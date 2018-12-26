@@ -4,12 +4,11 @@ from threading import Thread
 from django.http import HttpResponse, JsonResponse
 from asterisk.ami import SimpleAction, AMIClient, EventListener
 from checkquery.models import *
+from lkview.models import *
 from lk import settings
 from threading import Lock
 import time, re
 
-mutex = Lock()
-Events = []
 # Create your views here.
 
 class CEvents(EventListener):
@@ -42,20 +41,20 @@ def checkqueryMain(request):
 def MainJS(request):
     return render(request, 'checkquery/js/main.js')
 
+@login_required
 def queue(request, num):
-    PBXClient = AMIClient(address=settings.JSON_SETTINGS['asteriskServer'],port=5038)
-    PBXClient.login(username=settings.JSON_SETTINGS['AMILogin'],
-    secret=settings.JSON_SETTINGS['AMIPassword'])
-    PBXClient.add_event_listener(listener(request), white_list=['QueueMember', 'QueueStatusComplete'])
-    PBXClient.add_event_listener(CEvents, white_list=['QueueMember', 'QueueStatusComplete'])
-    action = SimpleAction('QueueStatus')
-    PBXClient.send_action(action)
-    #while mutex.locked():
-    #time.sleep(10)
-    #    print(mutex.locked())
-    return render(request, 'checkquery/result.html', {'events': Events} )
-
-def listener(request):
-    def internallistener(event, **kwargs):
-        Events += [event]
-    return internallistener
+    r = re.compile(r'.*/(\d+).*;(\d);(.*);')
+    qset = Astdb.objects.using('astdb').filter(key='/Queue/PersistentMembers/%s' % num).values('value')
+    AgentsIn = []
+    for q in qset:
+        agents = q['value'].split('|')
+        #print(agents)
+        for agent in agents:
+            nums = r.match(agent)[1]
+            paused = r.match(agent)[2]
+            fio = r.match(agent)[3]
+            AgentsIn += [{'nums': nums, 'paused' : paused, 'fio' : fio}]
+            #print('nums: %s, paused: %s, fio: %s' % (nums, paused, fio))
+    content = {'Queue' : num, 'AgentsIn' : AgentsIn}
+    print(content)
+    return render(request, 'checkquery/result.html', content)

@@ -1,6 +1,12 @@
 
+<h1>{{ Queue }}</h1>
+{% for AgentIn in AgentsIn %}
 
-
-{% for event in events%}
-<p>{{ event }}</p>
+<p>{{ AgentIn.num }}: {{ AgentIn.fio }}
+  {% if AgentIn.paused == '0' %}
+  Работает
+  {% else %}
+  В паузе
+  {% endif %}
+</p>
 {% endfor %}

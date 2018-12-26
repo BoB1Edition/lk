@@ -34,7 +34,7 @@ class Cdr(models.Model):
 
 class Astdb(models.Model):
     key = models.CharField(unique=True, max_length=255, blank=True, primary_key=True)
-    value = models.CharField(max_length=256, blank=True, null=True)
+    value = models.CharField(max_length=1024, blank=True, null=True)
 
     class Meta:
         managed = False
