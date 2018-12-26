@@ -5,6 +5,9 @@
 /*.container {
   margin-left: 1%;
 }*/
+body {
+  font-family: 'Pacifico', cursive;
+}
 
 title {
   font-family: 'Lobster';
