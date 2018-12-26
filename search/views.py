@@ -75,7 +75,7 @@ def result(request, num):
                         continue
                     if event['cid_num'] == '' or event['cid_num'] is None  or event['exten'] == '':
                         continue
-                    if event['eventtype'] == 'ATTENDEDTRANSFER':
+                    if event['eventtype'] == 'ATTENDEDTRANSFER' or event['eventtype'] == 'LOCAL_OPTIMIZE':
                         continue
                     call += [{
                     'date': event['eventtime'],
