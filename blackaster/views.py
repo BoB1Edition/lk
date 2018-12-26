@@ -41,6 +41,7 @@ def Listen(request, num):
     PBXClient = AMIClient(address=settings.JSON_SETTINGS['asteriskServer'],port=5038)
     PBXClient.login(username=settings.JSON_SETTINGS['AMILogin'],
     secret=settings.JSON_SETTINGS['AMIPassword'])
+    print(PBXClient)
     action = SimpleAction('Originate',
     Channel = ('SIP/%s' % request.user.aduser.telephoneNumber),
     CallerID = 'Spy',
@@ -53,6 +54,7 @@ def Listen(request, num):
     #Priority = '1',
     #Async = 'yes'
     )
+    print(action)
     ans = PBXClient.send_action(action)
     print(ans.response)
     return HttpResponse(ans.response)
