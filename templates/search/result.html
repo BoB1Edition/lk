@@ -13,7 +13,7 @@
         {% for event in call.calls %}
         <!--{{ event }}-->
         <tr>
-          <td>{{ event.date }}</td>
+          <td>{{ event.date| date:'Y-m-d H:i:s' }}</td>
           <td> {{ event.text }}</td>
           <!--td> {{ event.linkedid }}</td>
           <td> {{ event.uniqueid }}</td-->

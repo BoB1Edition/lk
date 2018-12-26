@@ -35,4 +35,7 @@ urlpatterns = [
     url(r'^accounts/login/$', LoginView.as_view(template_name='registration/login.html',
     authentication_form=views.LoginForm), name="login"),
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^checkquery/', include('checkquery.urls')),
+    url(r'^blackaster/', include('blackaster.urls'))
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import json
-from asterisk.ami import AMIClient
+
+import AsteriskWorker
+from queue import Queue
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     'lkview',
     'aduser',
     'search',
+    'checkquery',
+    'blackaster',
 ]
 
 MIDDLEWARE = [
@@ -157,4 +161,6 @@ LOGOUT_REDIRECT_URL = '/'
 STATIC_ROOT = os.path.join(BASE_DIR, "statics/")
 ALLOWED_HOSTS = ['*']
 
+#QUEUE_MESSAGE = Queue()
+#ASTERISK_WORKER = AsteriskWorker.Worker(QUEUE_MESSAGE)
 # AUTH_USER_MODEL = 'aduser.models.Aduser'
