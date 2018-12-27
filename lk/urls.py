@@ -20,6 +20,7 @@ from django.conf import settings
 from django.urls import include
 from lkview import views as lk
 from aduser import views
+from blackaster import views as blackaster
 from django.contrib.auth.views import LoginView
 
 urlpatterns = [
@@ -36,6 +37,7 @@ urlpatterns = [
     authentication_form=views.LoginForm), name="login"),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^checkquery/', include('checkquery.urls')),
-    url(r'^blackaster/', include('blackaster.urls'))
+    url(r'^blackaster/', include('blackaster.urls')),
+    url(r'^js/sipphone.js', blackaster.sipphone, name='sipphone')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

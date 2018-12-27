@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href='{% static "lkview/css/main.css" %}'>
 <link rel="stylesheet" href='{% static "css/GlobalMain.css" %}'>
+<script src={% static "js/jssip-3.3.2.js" %} crossorigin="anonymous"></script>
+<script src={% url "sipphone" %} crossorigin="anonymous"></script>
 <link href='{% static "css/floating-labels.css"  %}' rel="stylesheet">
   {% if user.is_authenticated %}
   <title>Добро пожаловать {{ user }} </title>

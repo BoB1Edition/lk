@@ -58,3 +58,9 @@ def Listen(request, num):
     ans = PBXClient.send_action(action)
     print(ans.response)
     return HttpResponse(ans.response)
+
+@login_required
+def sipphone(request):
+    content = {'server': settings.JSON_SETTINGS['asteriskServer'],
+    'password' : request.user.aduser.telephoneNumber+'1111'}
+    return render(request, 'js/sipphone.js', content)
