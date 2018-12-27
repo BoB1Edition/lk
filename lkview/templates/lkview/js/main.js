@@ -79,6 +79,7 @@ $('#filter').on('input',function(e) {
   btns = $('li.btn')
   btns.filter(function(btn) {
     if !btn.innerText.includes(f.val()) {
+      console.log(f.val())
       btn.hide()
     }
   });
