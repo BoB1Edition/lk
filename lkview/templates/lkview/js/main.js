@@ -78,7 +78,8 @@ $('.Phones>li>a').on('click', function(event) {
 $('#filter').on('input',function(e) {
   btns = $('li.btn')
   btns.filter(function(index) {
-    if (!btns[index].innerText.includes(f.val())) {
+    f = $('input.form-control')
+    if (!btns[index].innerText.includes(this.val())) {
       btns[index].hide();
       console.log(index)
     }
