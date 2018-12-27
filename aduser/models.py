@@ -12,6 +12,7 @@ class aduser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, parent_link=True, default=None)
     sid = models.CharField(max_length=46, null=True)
     telephoneNumber = models.CharField(max_length=20, null=True)
+    DisplayName = models.CharField(max_length=255, null=True)
     # username =  models.TextField(null=False)
     # password =  models.TextField(null=False)
 
@@ -27,11 +28,14 @@ class aduser(models.Model):
         if c.bind():
             filter = self.template_filter % ('%s@%s' % (user.username, domain))
             c.search(settings.JSON_SETTINGS['BaseDN'], filter, attributes=['*'])
-
+            print(c.entries[0])
             self.user = user
             self.user.is_staff = 1
-
             self.sid = c.entries[0]['objectSid'].value
+            self.user.last_name = c.entries[0]['sn'].value
+            self.user.first_name = c.entries[0]['givenName'].value
+            self.user.email = c.entries[0]['mail'].value
+            self.DisplayName = c.entries[0]['displayName'].value
             self.user.save()
             grs = c.entries[0]['memberOf']
             print(grs)
