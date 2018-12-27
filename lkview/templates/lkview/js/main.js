@@ -80,7 +80,7 @@ $('#filter').on('input',function(e) {
   btns = $('li.btn');
   btns.filter(function(index) {
     if (!btns[index].innerText.includes(f.val())) {
-      btns[index].hide();
+      $(btns[index]).hide();
       console.log(index)
     }
   });
