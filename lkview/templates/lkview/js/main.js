@@ -81,7 +81,9 @@ $('#filter').on('input',function(e) {
   btns.filter(function(index) {
     if (!btns[index].innerText.includes(f.val())) {
       $(btns[index]).hide();
-      console.log(index)
+    }
+    else {
+      $(btns[index]).show();
     }
   });
 });
