@@ -44,19 +44,20 @@ def Listen(request, num):
     print(PBXClient)
     action = SimpleAction('Originate',
     Channel = ('SIP/%s' % request.user.aduser.telephoneNumber),
-    CallerID = 'Spy',
+    CallerID = ('Spy%s' % num),
     #Exten = '6670',
     #Application = 'Playback',
     Application = 'ChanSpy',
     #Data = '/var/spool/asterisk/monitor/2017/10/03/out-1694-6666-20171003-103712-1507016232.189',
     Data = ('SIP/%s,qx' % num),
-    Timeout = '15000',
+    Timeout = '30000',
     #Priority = '1',
     #Async = 'yes'
     )
     print(action)
     ans = PBXClient.send_action(action)
     print(ans.response)
+    PBXClient.logoff()
     return HttpResponse(ans.response)
 
 @login_required

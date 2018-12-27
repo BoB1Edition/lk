@@ -52,43 +52,43 @@ def result(request, num):
             if quniq['linkedid'] in linkedids:
                 continue
             linkedids += [quniq['linkedid']]
-            rec = ''
-            for linkedid in linkedids:
-                #print('linkedid: %s' % linkedid)
-                events =  Cel.objects.using('asteriskcdrdb').filter(
-                Q(linkedid=linkedid)
-                ).values().distinct()
-                call = []
+    rec = ''
+    for linkedid in linkedids:
+        #print('linkedid: %s' % linkedid)
+        events =  Cel.objects.using('asteriskcdrdb').filter(
+        Q(linkedid=linkedid)
+        ).values().distinct()
+        call = []
 
-                for event in events:
-                    #print('event: %s' % event)
-                    if event['exten'] == 'recordcheck':
-                        rec = '%s' % event['appdata']
-                        continue
-                    if event['context']  == 'from-queue' or event['eventtype'] == 'BLINDTRANSFER':
-                        continue
-                    if event['eventtype'] == 'CHAN_END' or event['eventtype'] == 'BRIDGE_ENTER'  or event['eventtype'] == 'BRIDGE_EXIT':
-                        continue
-                    if event['eventtype'] == 'APP_END':
-                        continue
-                    if ((event['context'] == 'from-internal' or event['context'] == 'ext-local') and event['eventtype'] == 'HANGUP'):
-                        continue
-                    if event['cid_num'] == '' or event['cid_num'] is None  or event['exten'] == '':
-                        continue
-                    if event['eventtype'] == 'ATTENDEDTRANSFER' or event['eventtype'] == 'LOCAL_OPTIMIZE':
-                        continue
-                    call += [{
-                    'date': event['eventtime'],
-                    'text': eventToText(event),
-                    'linkedid' : event['linkedid'],
-                    'uniqueid' : event['uniqueid'],
-                    }]
-                    #print(event['eventtime'])
-                calls += [{
-                'calls': call,
-                'rec' : (rec.split(','))[0]
-                }]
-    # print(calls)
+        for event in events:
+            #print('event: %s' % event)
+            if event['exten'] == 'recordcheck':
+                rec = '%s' % event['appdata']
+                continue
+            if event['context']  == 'from-queue' or event['eventtype'] == 'BLINDTRANSFER':
+                continue
+            if event['eventtype'] == 'CHAN_END' or event['eventtype'] == 'BRIDGE_ENTER'  or event['eventtype'] == 'BRIDGE_EXIT':
+                continue
+            if event['eventtype'] == 'APP_END':
+                continue
+            if ((event['context'] == 'from-internal' or event['context'] == 'ext-local') and event['eventtype'] == 'HANGUP'):
+                continue
+            if event['cid_num'] == '' or event['cid_num'] is None  or event['exten'] == '':
+                continue
+            if event['eventtype'] == 'ATTENDEDTRANSFER' or event['eventtype'] == 'LOCAL_OPTIMIZE':
+                continue
+            call += [{
+            'date': event['eventtime'],
+            'text': eventToText(event),
+            'linkedid' : event['linkedid'],
+            'uniqueid' : event['uniqueid'],
+            }]
+            #print(event['eventtime'])
+        calls += [{
+        'calls': call,
+        'rec' : (rec.split(','))[0]
+        }]
+# print(calls)
     return render(request, 'search/result.html', {'calls':calls})
 
 def eventToText(event):

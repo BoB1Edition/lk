@@ -73,3 +73,17 @@ $('.Phones>li>a').on('click', function(event) {
       });
     });
 });
+
+
+$('#filter').on('input',function(e) {
+  f = $('input.form-control');
+  btns = $('li.btn');
+  btns.filter(function(index) {
+    if (!btns[index].innerText.includes(f.val())) {
+      $(btns[index]).hide();
+    }
+    else {
+      $(btns[index]).show();
+    }
+  });
+});
