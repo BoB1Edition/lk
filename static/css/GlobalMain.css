@@ -11,6 +11,10 @@ body {
   font-family: 'Arial', cursive;
 }
 
+h3 {
+  font-size: 0.9pem;
+}
+
 .line {
   height: 100px;
 }
