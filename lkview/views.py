@@ -123,4 +123,5 @@ def convert(request, fname):
 
 @login_required
 def main(request):
+    #print(request.user.aduser)
     return render(request, 'lkview/main.html')

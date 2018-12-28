@@ -23,17 +23,24 @@ $('.Phones>li>a').on('click', function(event) {
       compile : function() {
         $('.circle').hide('slow');
         $('.circle').remove();
+        $('#norec').remove();
       },
       method: 'POST',
       url: (window.location.origin+"/record/number/" + number + "/"),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       success: function( data ) {
-        console.log(data)
         $('.circle').hide('slow');
         $('.circle').remove();
-        $('#in').append('<h1>Входящие вызовы</h1>');
-        $('#out').append('<h1>Исходящие вызовы</h1>');
+        /*if(data.length == 0) {
+          console.log('data.length: ' + data.length)
+          $('#data').append('<h2 id="norec">Записей не найдено</h2>');
+          $('#in').remove();
+          $('#out').remove();
+          return;
+        }*/
+        $('#in').append('<h2>Входящие вызовы</h2>');
+        $('#out').append('<h2>Исходящие вызовы</h2>');
         for(var i in data) {
           if(data[i]['direction'] === 'in') {
             str = "<li class=\"btn btn-block btn-primary\" filename=\""
