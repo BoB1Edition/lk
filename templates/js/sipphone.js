@@ -1,8 +1,9 @@
 {% load static %}
 //import SIP from '{% static "js/jssip-0.2.0.min.js" %}'
 
+JsSIP.debug.enable ('JsSIP: *');
 var socket = new JsSIP.WebSocketInterface('ws://srvpbx.ath.ru:8088/ws');
-socket.via_transport = "tcp";
+//socket.via_transport = "tcp";
 var token = '{{csrf_token}}';
 
 var configuration = {
@@ -48,7 +49,7 @@ var options = {
   'mediaConstraints' : { 'audio': true, 'video': false }
 };
 
-var session = ua.call('sip:6350@{{ server }}:5060', options);
+/*var session = ua.call('sip:6350@{{ server }}:5060', options);
 var session = ua.call('sip:6350', options);
 var session = ua.call('sip:6350@srvpbx.ath.ru:5060', options);
 var session = ua.call('sip:6350@srvpbx.ath.ru', options);

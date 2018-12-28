@@ -56,7 +56,7 @@ def Listen(request, num):
     )
     print(action)
     ans = PBXClient.send_action(action)
-    print(ans.response)
+    time.sleep(25)
     PBXClient.logoff()
     return HttpResponse(ans.response)
 
