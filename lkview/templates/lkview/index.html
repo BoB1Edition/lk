@@ -4,9 +4,9 @@
 {% load static %}
 
     <div class="row">
-    <aside class="col-md-3 sidebar">
+    <aside class="col-md-3 sidebar h-75 sticky-top">
       {% if mynumber %}
-      <ul class="navbar-nav mr-auto sticky-top Phones">
+      <ul class="navbar-nav mr-auto Phones h-75">
         <li class="nav-item">
           <a href="#t{{ mynumber }}" data-toggle="collapse" data-target="#t{{ mynumber }}" data-parent="#Phones" class="btn btn-block btn-primary">{{ mynumber }}</a>
           {% csrf_token %}

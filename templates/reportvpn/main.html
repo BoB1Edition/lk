@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<form method="post" action="/report-vpn/" class="center">
+  {% csrf_token %}
+  <div class="form-group row">
+    <label class="col-form-label col-md-3" for='login'>Логин сотрудника</label>
+    <input id ='login' class="form-control col-md-4" name="username" type="text-muted" value="" placeholder="{{ user }}" required>
+  </div>
+  <div class="form-group row">
+    <label class="col-form-label col-md-3" for='databegin'>Дата начала отчета</label>
+    <input id ='databegin' class="form-control col-md-4" name="username" type="date">
+  </div>
+  <div class="form-group row">
+    <label class="col-form-label col-md-3" for='dataend'>Дата конца отчета</label>
+    <input id ='dataend' class="form-control col-md-4" name="username" type="date">
+  </div>
+  <button class="btn col">сформировать отчет</button>
+</form>
+
+<div class="row" id="report">
+
+</div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery.min.js" crossorigin="anonymous"></script>
+<script src={% url 'reportvpnMainJS' %}></script>
+
+{% endblock %}

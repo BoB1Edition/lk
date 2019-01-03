@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.urls import path
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
@@ -36,6 +37,7 @@ urlpatterns = [
     authentication_form=views.LoginForm), name="login"),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^checkquery/', include('checkquery.urls')),
-    url(r'^blackaster/', include('blackaster.urls'))
+    path('report-vpn/', include('reportvpn.urls')),
+    url(r'^blackaster/', include('blackaster.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
