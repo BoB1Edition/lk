@@ -10,5 +10,5 @@ from reportvpn.views import *
 urlpatterns = [
     url(r'^$', views.reportvpnMain, name='reportvpnMain'),
     url(r'^js/main.js$', views.reportvpnMainJS, name='reportvpnMainJS'),
-    url(r'^result$', views.reportvpnMainJS, name='reportvpnMainJS'),
+    url(r'^result/$', views.reportvpnMainReport, name='reportvpnMainReport'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
