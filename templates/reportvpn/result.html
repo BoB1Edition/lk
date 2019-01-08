@@ -1,0 +1,27 @@
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Логин</th>
+      <th>Подключился</th>
+      <th>Отключился</th>
+      <th>Проработал</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pair in pairs%}
+    <tr>
+      <td>{{ pair.login }}</td>
+      <td>{{ pair.started| date:'Y-m-d H:i:s' }}</td>
+      <td>{{ pair.terminated| date:'Y-m-d H:i:s' }}</td>
+      <td>{{ pair.difference  }}</td>
+
+    </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="3">Итого:</td>
+      <td>{{ worktime }}</td>
+    </tr>
+  </tbody>
+
+</table>

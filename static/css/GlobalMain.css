@@ -1,12 +1,26 @@
 .wrapper {
   background-color: beer;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
 /*.container {
   margin-left: 1%;
 }*/
 body {
-  font-family: 'Pacifico', cursive;
+  font-family: 'Arial', cursive;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+.line {
+  height: 100px;
+}
+
+.queue {
+  margin-bottom: 8px;
 }
 
 title {
@@ -20,7 +34,7 @@ title {
     padding-left: 0;
     padding-right: 0;
 }
-*/.sidebar {
+.sidebar {
 /*    position: absolute;
     top: 51px;
     bottom: 0;
@@ -29,9 +43,9 @@ title {
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto;
-*/    border-right: 2px solid #eee;
+s   border-right: 2px solid #eee;
     border-color: black;
-}
+}*/
 
 .circle {
     position: absolute;
@@ -64,7 +78,26 @@ title {
   color: black;
 }
 
+p.btn.number {
+  margin-bottom: 0;
+}
+
+li {
+  padding-top: 6;
+  padding-bottom: 6;
+  margin-top: .5rem;
+}
+
 .btn:hover {
   background-color: LightSteelBlue;
   color: black;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+#Phones {
+ overflow-y: auto;
 }

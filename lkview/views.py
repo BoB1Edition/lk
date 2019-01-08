@@ -119,8 +119,17 @@ def convert(request, fname):
     cmd = 'ffmpeg -i %s -acodec libvorbis convert/%sogg' % (fname, output)
     #p = Popen(['ffmpeg', '-i', fname, '-acodec', 'libvorbis', 'convert/%sogg' % output])
     os.system(cmd)
+    cmd = 'find convert/ -type f -mmin +360 -delete'
+    os.system(cmd)
     return JsonResponse({})
 
 @login_required
 def main(request):
-    return render(request, 'lkview/main.html')
+    content = {'is_vpn' : False}
+    for gr in request.user.groups.values('name'):
+        if gr['name'] == 'vpn-report':
+            print('name')
+            content = {'is_vpn' : True}
+        else:
+            print('else: ',gr['name'])
+    return render(request, 'lkview/main.html', content)

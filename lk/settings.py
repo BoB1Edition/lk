@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'search',
     'checkquery',
     'blackaster',
+    'reportvpn',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +101,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'read_default_file': os.path.join(BASE_DIR, 'asteriskcdrdb.cnf'),
+        },
+    },
+    'vpn': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': os.path.join(BASE_DIR, 'vpn.cnf'),
         },
     },
     'astdb': {
