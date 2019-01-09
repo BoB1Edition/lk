@@ -63,5 +63,5 @@ def Listen(request, num):
 @login_required
 def sipphone(request):
     content = {'server': settings.JSON_SETTINGS['asteriskServer'],
-    'password' : request.user.aduser.telephoneNumber+'1111'}
+    'password' : '3da4cfd14733c57baf77012eab1569c6'}
     return render(request, 'js/sipphone.js', content)

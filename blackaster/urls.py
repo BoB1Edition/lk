@@ -10,5 +10,6 @@ app_name = 'blackaster'
 urlpatterns = [
     url(r'^$', BlackAster, name='BlackAster'),
     url(r'^js/main.js', BlackMainJS, name='BlackMainJS'),
-    url(r'^listen/(\d+)', Listen, name='Listen')
+    url(r'^listen/(\d+)', Listen, name='Listen'),
+    url(r'^js/sipphone.js', sipphone, name='sipphone'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

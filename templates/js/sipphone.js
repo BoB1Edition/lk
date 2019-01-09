@@ -9,7 +9,7 @@ var token = '{{csrf_token}}';
 var configuration = {
 
     sockets  : [ socket ],
-    uri      : 'sip:{{ user.aduser.telephoneNumber }}1@srvpbx.ath.ru',
+    uri      : 'sip:{{ user.aduser.telephoneNumber }}2@srvpbx.ath.ru',
     password : '{{ password }}'
   };
 
@@ -49,15 +49,15 @@ var options = {
   'mediaConstraints' : { 'audio': true, 'video': false }
 };
 
-/*var session = ua.call('sip:6350@{{ server }}:5060', options);
-var session = ua.call('sip:6350', options);
-var session = ua.call('sip:6350@srvpbx.ath.ru:5060', options);
-var session = ua.call('sip:6350@srvpbx.ath.ru', options);
-var session = ua.call('sip:6350@{{ server }}', options);
-var session = ua.call('sip:6350@device', options);
-var session = ua.call('sip:sip/6350@device', options);
-var session = ua.call('sip:sip/6350@{{ server }}', options);
-var session = ua.call('sip:sip/6350@{{ server }}:5060', options);
+var session = ua.call('sip:66331@{{ server }}:5060', options);
+/*var session = ua.call('sip:66331', options);
+var session = ua.call('sip:66331@srvpbx.ath.ru:5060', options);
+var session = ua.call('sip:66331@srvpbx.ath.ru', options);
+var session = ua.call('sip:66331@{{ server }}', options);
+var session = ua.call('sip:66331@device', options);
+var session = ua.call('sip:sip/66331@device', options);
+var session = ua.call('sip:sip/66331@{{ server }}', options);
+var session = ua.call('sip:sip/66331@{{ server }}:5060', options);
 
 /*ua.invite('6633@{{ server }}',{
   media: {
