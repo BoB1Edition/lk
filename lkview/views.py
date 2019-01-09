@@ -10,32 +10,6 @@ from subprocess import Popen
 
 @login_required
 def index(request):
-    #PBXClient = AMIClient(address=settings.JSON_SETTINGS['asteriskServer'],port=5038)
-    #PBXClient.login(username=settings.JSON_SETTINGS['AMILogin'],
-    #secret=settings.JSON_SETTINGS['AMIPassword'])
-    #def event_listener(event,**kwargs):
-    #    print(event)
-
-    #PBXClient.add_event_listener(event_listener, white_list=['DBGetResponse'])
-    #action = SimpleAction(
-    #'Logoff',
-    #Queue='1990',
-    #Interface='sip/6328',
-    #Penalty=1,
-    #Paused='false'
-    #)
-    #print()
-    # PBXClient = settings.PBXClient
-    #ans = PBXClient.send_action(action, callback=callback_response)
-    #print(ans)
-#    action = SimpleAction('Originate',
-#    Channel='SIP/6350',
-#    Exten='6633',
-#    Priority=1,
-#    Context='default',
-#    CallerID='python',
-#    )
-#    ans = PBXClient.send_action(action, callback=callback_response)
     regrecord = re.compile("record-(\d{4})", re.IGNORECASE|re.UNICODE)
     liitem = []
     for gr in request.user.groups.all():
@@ -51,27 +25,17 @@ def index(request):
         except Exception as e:
             print(e)
             continue
-    #Astdb.objects.using('astdb').filter(key__contains='/QPENALTY/%s/agents' % )
     mynumber = request.user.aduser.telephoneNumber
-    #liitem += ['0000']
-    # print("response: %s" % ans.response)
     liitem.sort()
     context = {'liitem': liitem, 'mynumber' : mynumber}
-    #return HttpResponse('%s' % dir(request.user))
     return render(request, 'lkview/index.html', context)
 
 def callback_response(response):
     print(response)
 
 def addnotdouble(item, items):
-    items.sort()
-    print(item)
     if item[0] not in items:
-        print('if')
         items += item
-    else:
-        print(items)
-
     return items
 
 @login_required
