@@ -4,7 +4,7 @@
 {% load static %}
 
 <div class="row">
-  <div class="formquery form-group sticky col-md-3">
+  <div class="formquery form-group sidebar sticky col-md-3">
     {% csrf_token %}
   {% for number in numbers %}
   <p class="btn number btn-block" data={{ number }}>{{ number }}</p>

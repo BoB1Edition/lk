@@ -32,9 +32,10 @@ def checkqueryMain(request):
                 queues += [q]
         except Exception as e:
             pass
-        content = {
-        'queues' : queues,
-        }
+    queues.sort()
+    content = {
+    'queues' : queues,
+    }
     return render(request, 'checkquery/main.html', content)
 
 @login_required

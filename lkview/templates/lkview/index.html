@@ -4,9 +4,9 @@
 {% load static %}
 
     <div class="row">
-    <aside class="col-md-3 sidebar h-75 sticky-top">
+    <div class="col-md-3 sidebar sticky-top">
       {% if mynumber %}
-      <ul class="navbar-nav mr-auto Phones h-75">
+      <ul class="navbar-nav mr-auto Phones">
         <li class="nav-item">
           <a href="#t{{ mynumber }}" data-toggle="collapse" data-target="#t{{ mynumber }}" data-parent="#Phones" class="btn btn-block btn-primary">{{ mynumber }}</a>
           {% csrf_token %}
@@ -19,9 +19,9 @@
         </li>
       {% endfor %}
       </ul>
-      </aside>
+      </div>
       <div controls id="data" class="col-md-9 row">
-        <div class="col-md-12 line sticky-top">
+        <div class="col-md-12 sticky-top">
         <input type="text" name="" value="" class="form-control" id='filter'>
         </div>
         <div controls id="in" class="col-md-5 col">

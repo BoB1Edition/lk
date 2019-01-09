@@ -26,9 +26,10 @@ def BlackAster(request):
                 numbers += ['%s' % q]
         except Exception as e:
             pass
-        content = {
-        'numbers' : numbers,
-        }
+    numbers.sort()
+    content = {
+    'numbers' : numbers,
+    }
     return render(request, 'blackaster/main.html', content)
 
 @login_required

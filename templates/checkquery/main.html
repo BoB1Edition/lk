@@ -4,7 +4,7 @@
 {% load static %}
 
 <div class="row">
-  <div class="formquery form-group sticky col-md-3">
+  <div class="formquery form-group sidebar sticky col-md-3">
     {% csrf_token %}
   {% for queue in queues %}
   <p class="btn queue btn-block" data={{ queue }}>{{ queue }}</p>
