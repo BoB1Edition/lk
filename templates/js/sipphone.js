@@ -49,7 +49,7 @@ var options = {
   'mediaConstraints' : { 'audio': true, 'video': false }
 };
 
-var session = ua.call('sip:66331@{{ server }}:5060', options);
+var session = ua.call('sip:6350@{{ server }}:5060', options);
 /*var session = ua.call('sip:66331', options);
 var session = ua.call('sip:66331@srvpbx.ath.ru:5060', options);
 var session = ua.call('sip:66331@srvpbx.ath.ru', options);
