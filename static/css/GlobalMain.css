@@ -9,6 +9,7 @@
 }*/
 body {
   font-family: 'Arial', cursive;
+  /*height: 100%;*/
 }
 
 h3 {
@@ -48,7 +49,7 @@ s   border-right: 2px solid #eee;
 }*/
 
 .circle {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -100,4 +101,17 @@ h2 {
 
 #Phones {
  overflow-y: auto;
+}
+
+.sidebar {
+  overflow-y: auto;
+  height: calc(99vh - 95px - 9px);
+}
+
+#data {
+    height: max-content;
+}
+
+#in, #out {
+  max-width: none;
 }

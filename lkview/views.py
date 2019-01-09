@@ -45,9 +45,9 @@ def index(request):
             queue = Astdb.objects.using('astdb').filter(key__contains='/QPENALTY/%s/agents' % t)
             if queue.count() > 0:
                 for agent in queue:
-                    liitem += ['%s' % agent.key.split('/')[-1]]
+                    liitem = addnotdouble(['%s' % agent.key.split('/')[-1]], liitem)
             else:
-                liitem += ['%s' % t]
+                liitem = addnotdouble(['%s' % t], liitem)
         except Exception as e:
             print(e)
             continue
@@ -55,12 +55,24 @@ def index(request):
     mynumber = request.user.aduser.telephoneNumber
     #liitem += ['0000']
     # print("response: %s" % ans.response)
+    liitem.sort()
     context = {'liitem': liitem, 'mynumber' : mynumber}
     #return HttpResponse('%s' % dir(request.user))
     return render(request, 'lkview/index.html', context)
 
 def callback_response(response):
     print(response)
+
+def addnotdouble(item, items):
+    items.sort()
+    print(item)
+    if item[0] not in items:
+        print('if')
+        items += item
+    else:
+        print(items)
+
+    return items
 
 @login_required
 def mainjs(request):
