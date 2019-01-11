@@ -14,7 +14,9 @@
       {% endif %}
       {% for item in liitem %}
         <li class="nav-item">
-          <a class="btn btn-block btn-primary" href="#t{{ item }}" data-toggle="collapse" data-parent="#Phones" >{{ item }}</a>
+          <a class="btn btn-block btn-primary" href="#t{{ item }}" data-toggle="collapse" data-parent="#Phones" data={{ item }} >
+            {{ item }}
+          </a>
           {% csrf_token %}
         </li>
       {% endfor %}

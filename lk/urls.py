@@ -21,9 +21,11 @@ from django.conf import settings
 from django.urls import include
 from lkview import views as lk
 from aduser import views
+from sidebar import views as sidebar
 from django.contrib.auth.views import LoginView
 
 urlpatterns = [
+    path('sidebar/', include('sidebar.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^record/number/([0-9]+)/', lk.number, name='number'),
     url(r'^$', lk.main, name='main'),
@@ -38,6 +40,7 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^checkquery/', include('checkquery.urls')),
     path('report-vpn/', include('reportvpn.urls')),
+    path('iframes/', include('iframes.urls')),
     url(r'^blackaster/', include('blackaster.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -115,3 +115,8 @@ h2 {
 #in, #out {
   max-width: none;
 }
+
+iframe {
+  width: 100%;
+  height: calc(99vh - 95px - 9px);
+}

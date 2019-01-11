@@ -15,7 +15,6 @@ def index(request):
     for gr in request.user.groups.all():
         try:
             t = regrecord.match('%s' % gr.name)[1]
-
             queue = Astdb.objects.using('astdb').filter(key__contains='/QPENALTY/%s/agents' % t)
             if queue.count() > 0:
                 for agent in queue:

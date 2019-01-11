@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'checkquery',
     'blackaster',
     'reportvpn',
+    #'sidebar',
+    'astmodels',
 ]
 
 MIDDLEWARE = [
