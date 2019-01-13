@@ -10,6 +10,7 @@ from subprocess import Popen
 
 @login_required
 def index(request):
+    print('index')
     regrecord = re.compile("record-(\d{4})", re.IGNORECASE|re.UNICODE)
     liitem = []
     for gr in request.user.groups.all():
@@ -24,6 +25,7 @@ def index(request):
         except Exception as e:
             print(e)
             continue
+    print(liitem)
     mynumber = request.user.aduser.telephoneNumber
     liitem.sort()
     context = {'liitem': liitem, 'mynumber' : mynumber}
@@ -44,7 +46,7 @@ def mainjs(request):
     }, content_type='application/javascript')
 
 def number(request, num):
-    print(number)
+    print('num: %s' % num)
     r = re.compile('.*-(.+)-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})-.*')
     recordingfiles = Cdr.objects.using('asteriskcdrdb').filter(
     ~Q(recordingfile = ''),

@@ -5,3 +5,4 @@ astdb/
 resource/
 *.pyc
 statics/
+converts/
