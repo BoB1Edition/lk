@@ -98,7 +98,7 @@ $('button').on('click', function(){
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function( data ) {
-          parent.append("<audio class='player' src=http://srvlk.ath.ru/ogg/"+filename.substr(1, filename.length - 4) +
+          parent.append("<audio class='player' src=/ogg/"+filename.substr(1, filename.length - 4) +
           "ogg controls>play record</audio>");
         }
       }).done(function(){

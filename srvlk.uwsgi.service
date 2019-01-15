@@ -1,0 +1,16 @@
+[Unit]
+Description=srvlk demon
+After=syslog.target
+
+[Service]
+ExecStart=/usr/local/bin/uwsgi --ini /var/www/lk/lk_uwsgi.ini
+# Requires systemd version 211 or newer
+RuntimeDirectory=uwsgi
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
