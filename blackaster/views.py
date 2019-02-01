@@ -8,6 +8,7 @@ from lkview.models import *
 from lk import settings
 from threading import Lock
 import time, re
+from AsteriskWorker import Worker
 
 # Create your views here.
 
@@ -61,13 +62,8 @@ def Listen(request, num):
     PBXClient.logoff()
     return HttpResponse(ans.response)
 
-def deletequeue(request):
-    PBXClient = AMIClient(address=settings.JSON_SETTINGS['asteriskServer'],port=5038)
-    PBXClient.login(username=settings.JSON_SETTINGS['AMILogin'],
-    secret=settings.JSON_SETTINGS['AMIPassword'])
-    print(PBXClient)
-    action = SimpleAction('QueueRemove',
-    Queue='1990',
-    Interface='sip/6328')
-    ans = PBXClient.send_action(action)
-    return HttpResponse(ans.response)
+def test(request):
+    w = Worker()
+    print(w.QueryStat())
+    events = w.events
+    return HttpResponse(events)

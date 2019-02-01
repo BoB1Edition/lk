@@ -7,16 +7,16 @@ from lkview.models import Cdr, Astdb
 from django.db.models import Q
 import re, os
 from subprocess import Popen
+from AsteriskWorker import *
 
 @login_required
 def index(request):
-    print('index')
     regrecord = re.compile("record-(\d{4})", re.IGNORECASE|re.UNICODE)
     liitem = []
     for gr in request.user.groups.all():
         try:
             t = regrecord.match('%s' % gr.name)[1]
-            queue = Astdb.objects.using('astdb').filter(key__contains='/QPENALTY/%s/agents' % t)
+            #queue = Astdb.objects.using('astdb').filter(key__contains='/QPENALTY/%s/agents' % t)
             if queue.count() > 0:
                 for agent in queue:
                     liitem = addnotdouble(['%s' % agent.key.split('/')[-1]], liitem)
@@ -30,9 +30,6 @@ def index(request):
     liitem.sort()
     context = {'liitem': liitem, 'mynumber' : mynumber}
     return render(request, 'lkview/index.html', context)
-
-def callback_response(response):
-    print(response)
 
 def addnotdouble(item, items):
     if item[0] not in items:

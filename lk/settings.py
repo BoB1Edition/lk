@@ -114,10 +114,6 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': os.path.join(BASE_DIR, 'vpn.cnf'),
         },
-    },
-    'astdb': {
-        'ENGINE' : 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'astdb/astdb.sqlite3'),
     }
 }
 

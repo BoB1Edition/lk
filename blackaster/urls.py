@@ -9,7 +9,7 @@ from blackaster.views import *
 app_name = 'blackaster'
 urlpatterns = [
     url(r'^$', BlackAster, name='BlackAster'),
-    url(r'^js/main.js', BlackMainJS, name='BlackMainJS'),
+    url(r'^js/main.js$', BlackMainJS, name='BlackMainJS'),
     url(r'^listen/(\d+)', Listen, name='Listen'),
-    url(r'deletequeue', deletequeue, name='deletequeue')
+    url(r'test/', test, name='test')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
