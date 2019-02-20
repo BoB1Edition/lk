@@ -4,10 +4,10 @@
 {% load static %}
 
 <div class="row">
-  <div class="formquery form-group sidebar sticky col-md-3">
+  <div class="formquery form-group sidebar sticky col-md-4">
     {% csrf_token %}
-  {% for queue in queues %}
-  <p class="btn queue btn-block" data={{ queue }}>{{ queue }}</p>
+  {% for name, queue in queues %}
+  <p class="btn queue btn-block" data={{ queue }}>{{ name }}({{ queue }})</p>
   {% endfor %}
   </div>
   <div class="col-md" id="result">

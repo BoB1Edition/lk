@@ -1,8 +1,9 @@
 var token = '{{csrf_token}}';
 
+var t = ''
+
 $('.Phones>li>a').on('click', function(event) {
-    number = $(event.target).html();
-    number = number.trim()
+    number = ''+ $(event.target).attr('data');
       $.ajax( {
         headers: { "X-CSRFToken": token },
         beforeSend: function() {

@@ -64,6 +64,6 @@ def Listen(request, num):
 
 def test(request):
     w = Worker()
-    print(w.QueryStat())
-    events = w.events
+    events = w.GetQuery()
+    print(events)
     return HttpResponse(events)

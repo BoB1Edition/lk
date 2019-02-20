@@ -6,35 +6,39 @@ from asterisk.ami import SimpleAction, AMIClient
 from lkview.models import Cdr, Astdb
 from django.db.models import Q
 import re, os
-from subprocess import Popen
+from astmodels.models import *
 from AsteriskWorker import *
 
 @login_required
 def index(request):
+    w = Worker()
     regrecord = re.compile("record-(\d{4})", re.IGNORECASE|re.UNICODE)
-    liitem = []
+    liitem = {}
+    queue = w.GetQuery()
     for gr in request.user.groups.all():
         try:
-            t = regrecord.match('%s' % gr.name)[1]
-            #queue = Astdb.objects.using('astdb').filter(key__contains='/QPENALTY/%s/agents' % t)
-            if queue.count() > 0:
-                for agent in queue:
-                    liitem = addnotdouble(['%s' % agent.key.split('/')[-1]], liitem)
-            else:
-                liitem = addnotdouble(['%s' % t], liitem)
+            if not regrecord.match('%s' % gr.name) is None:
+                t = regrecord.match('%s' % gr.name)[1]
+                print("t: %s" % t)
+                value = '%s' % t
+
+                if value in queue:
+                    key = QueuesConfig.objects.using('asterisk').filter(
+                    extension = ('%s' % value)).values_list('descr').get()[0]
+                else:
+                    key = Users.objects.using('asterisk').filter(
+                    extension = ('%s' % value)).values_list('name').get()[0]
+
+                print("users key: %s\nvalue: %s" % (key, value))
+                liitem[key] = value
         except Exception as e:
             print(e)
             continue
-    print(liitem)
     mynumber = request.user.aduser.telephoneNumber
-    liitem.sort()
-    context = {'liitem': liitem, 'mynumber' : mynumber}
+    l=[]
+    for i, j in sorted(liitem.items(), key=lambda x: x[0].lower()): l+= [(i, j)]
+    context = {'liitem': l, 'mynumber' : mynumber}
     return render(request, 'lkview/index.html', context)
-
-def addnotdouble(item, items):
-    if item[0] not in items:
-        items += item
-    return items
 
 @login_required
 def mainjs(request):

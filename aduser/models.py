@@ -13,6 +13,7 @@ class aduser(models.Model):
     sid = models.CharField(max_length=46, null=True)
     telephoneNumber = models.CharField(max_length=20, null=True)
     DisplayName = models.CharField(max_length=255, null=True)
+    PathToPic = models.CharField(max_length=255, null=True)
     # username =  models.TextField(null=False)
     # password =  models.TextField(null=False)
 

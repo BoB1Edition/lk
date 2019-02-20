@@ -4,25 +4,25 @@
 {% load static %}
 
     <div class="row">
-    <div class="col-md-3 sidebar sticky-top">
+    <div class="col-md-4 sidebar sticky-top">
       {% if mynumber %}
       <ul class="navbar-nav mr-auto Phones">
         <li class="nav-item">
-          <a href="#t{{ mynumber }}" data-toggle="collapse" data-target="#t{{ mynumber }}" data-parent="#Phones" class="btn btn-block btn-primary">{{ mynumber }}</a>
+          <a href="#t{{ mynumber }}" data-toggle="collapse" data-target="#t{{ mynumber }}" data-parent="#Phones" class="btn btn-block btn-primary" data={{ mynumber }}>{{ mynumber }}</a>
           {% csrf_token %}
         </li>
       {% endif %}
-      {% for item in liitem %}
+      {% for item,v in liitem %}
         <li class="nav-item">
-          <a class="btn btn-block btn-primary" href="#t{{ item }}" data-toggle="collapse" data-parent="#Phones" data={{ item }} >
-            {{ item }}
+          <a class="btn btn-block btn-primary" href="#t{{ v }}" data-toggle="collapse" data-parent="#Phones" data={{ v }} >
+            {{ item }}({{v}})
           </a>
           {% csrf_token %}
         </li>
       {% endfor %}
       </ul>
       </div>
-      <div controls id="data" class="col-md-9 row">
+      <div controls id="data" class="col-md-8 row">
         <div class="col-md-12 sticky-top">
         <input type="text" name="" value="" class="form-control" id='filter' placeholder="2019/01/01 13:00:00 9036502345">
         </div>

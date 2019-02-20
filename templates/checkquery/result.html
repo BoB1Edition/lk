@@ -9,4 +9,8 @@
   В паузе
   {% endif %}
 </p>
+{% empty %}
+<div class="alert alert-danger" role="alert">
+  <h2>В очереди нет агентов</h2>
+</div>
 {% endfor %}
