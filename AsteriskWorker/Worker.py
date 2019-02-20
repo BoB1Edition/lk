@@ -53,7 +53,6 @@ class Worker(object):
         self.PBXClient.add_event_listener(self.listener, white_list=['QueueMember'], Queue='%s' % Queue)
         #self.events = ['QueryStat']
         self.PBXClient.send_action(action)
-        i = 15
         self.waitEvent()
         self.PBXClient.logoff()
         return self.events
@@ -88,7 +87,6 @@ class Worker(object):
             queue = []
             for event in self.events:
                 queue += [event['Queue']]
-            print(queue)
             cl.set('queue', ','.join(queue), settings.JSON_SETTINGS['MemcachedExpire'])
             return queue
         else:
