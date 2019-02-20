@@ -15,6 +15,7 @@ def index(request):
     regrecord = re.compile("record-(\d{4})", re.IGNORECASE|re.UNICODE)
     liitem = {}
     queue = w.GetQuery()
+    print(queue) 
     for gr in request.user.groups.all():
         try:
             if not regrecord.match('%s' % gr.name) is None:
