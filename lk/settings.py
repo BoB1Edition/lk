@@ -19,9 +19,7 @@ from queue import Queue
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print('------------------------------------------')
-print(BASE_DIR)
-print('------------------------------------------')
+JSON_SETTINGS = json.load(open('settings.json'))
 
 
 
@@ -114,7 +112,20 @@ DATABASES = {
         'OPTIONS': {
             'read_default_file': os.path.join(BASE_DIR, 'vpn.cnf'),
         },
-    }
+    },
+    'portal': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': JSON_SETTINGS["MSSQLDB"],
+        'HOST': JSON_SETTINGS["MSSQLServer"],
+        'PORT': '1433',
+        'USER': JSON_SETTINGS["MSSQLUserName"],
+        'PASSWORD': JSON_SETTINGS["MSSQLUserPassword"],
+        'OPTIONS': {
+            'driver': 'FreeTDS',
+            'host_is_server': True,
+            'extra_params': 'TDS_VERSION=7.3',
+        }
+    },
 }
 
 
@@ -164,7 +175,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-JSON_SETTINGS = json.load(open('settings.json'))
 LOGOUT_REDIRECT_URL = '/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "statics/")

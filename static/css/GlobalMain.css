@@ -120,3 +120,7 @@ iframe {
   width: 100%;
   height: calc(99vh - 95px - 9px);
 }
+
+img.rounded {
+  height: calc(30vh);
+}
