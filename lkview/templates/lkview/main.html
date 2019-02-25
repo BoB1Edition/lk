@@ -15,7 +15,7 @@
       <a class="btn btn-block" href="iframes/queue-stats">Отчет по звонкам</a>
     </div>
     <div class="col-md-8">
-      <img class="rounded float-right mr-2"  src="{% if request.is_secure %}HTTPS{% else %}HTTP{% endif %}://static.srvlk.ath.ru/{{ user.aduser.PathToPic }}" >
+      <img class="rounded float-right mr-2"  src="{% if request.is_secure %}HTTPS{% else %}HTTP{% endif %}://static.srvlk.ath.ru{{ user.aduser.PathToPic }}" >
         <p>
           {{ user.aduser.Description }}
         </p>
