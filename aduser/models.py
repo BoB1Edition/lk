@@ -15,8 +15,8 @@ class aduser(models.Model):
     DisplayName = models.CharField(max_length=255, null=True)
     PathToPic = models.CharField(max_length=255, null=True)
     Description = models.TextField(null=True)
-    # username =  models.TextField(null=False)
-    # password =  models.TextField(null=False)
+    username =  models.TextField(null=False)
+    password =  models.TextField(null=False)
 
     template_filter = '(userPrincipalName=%s)'
     connection = None
