@@ -14,22 +14,32 @@ from AsteriskWorker import Worker
 
 @login_required
 def BlackAster(request):
+    w = Worker()
+    queues = w.GetQuery()
+    print('queues: %s\n' % queues)
     r = re.compile(r"rec.*-(\d+)")
     numbers = []
     for gr in request.user.aduser.groups.values_list('groupname'):
         try:
             q = r.match(gr[0])[1]
-            qset = Astdb.objects.using('astdb').filter(key__contains='/QPENALTY/%s/agents' % q)
-            if qset.count() > 0:
+            # qset = Astdb.objects.using('astdb').filter(key__contains='/QPENALTY/%s/agents' % q)
+            
+            if q in queues:
+                print('if q: %s' % q)
+                qset = QueuesConfig.objects.using('asterisk').filter(extension = ('%s' % q)).values_list('descr')
+                print(qset)
                 for agent in qset:
                     numbers += ['%s' % agent.key.split('/')[-1]]
             else:
+                print('else q: %s' % q)
                 numbers += ['%s' % q]
         except Exception as e:
             pass
     numbers.sort()
+    fio = []
     content = {
     'numbers' : numbers,
+    'fio': fio
     }
     return render(request, 'blackaster/main.html', content)
 
