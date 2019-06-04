@@ -60,7 +60,9 @@ class aduser(models.Model):
         else:
             self.user = None
         if self.PathToPic is None:
-            Staff = staff.objects.using('portal').filter(tel = user.aduser.telephoneNumber).get()
+            print(dir(staff.objects.using('portal').filter(tel = user.aduser.telephoneNumber, staffemail = user.email)))
+            print(staff.objects.using('portal').filter(tel = user.aduser.telephoneNumber, staffemail = user.email))
+            Staff = staff.objects.using('portal').filter(tel = user.aduser.telephoneNumber, staffemail = user.email).get()
             self.PathToPic = "/%s%s%s.jpg" % (Staff.stafff, Staff.staffn, Staff.staffid)
             photo = open("%s%s" % (settings.JSON_SETTINGS['PathToPhoto'], self.PathToPic), 'wb')
             photo.write(Staff.photo)
